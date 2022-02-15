@@ -116,7 +116,8 @@
         }
       ],
       "stateMutability": "view",
-      "type": "function"
+      "type": "function",
+      "constant": true
     },
     {
       "inputs": [
@@ -135,7 +136,8 @@
         }
       ],
       "stateMutability": "view",
-      "type": "function"
+      "type": "function",
+      "constant": true
     },
     {
       "inputs": [
@@ -159,7 +161,8 @@
         }
       ],
       "stateMutability": "view",
-      "type": "function"
+      "type": "function",
+      "constant": true
     },
     {
       "inputs": [],
@@ -172,7 +175,8 @@
         }
       ],
       "stateMutability": "view",
-      "type": "function"
+      "type": "function",
+      "constant": true
     },
     {
       "inputs": [
@@ -191,7 +195,8 @@
         }
       ],
       "stateMutability": "view",
-      "type": "function"
+      "type": "function",
+      "constant": true
     },
     {
       "inputs": [
@@ -279,7 +284,8 @@
         }
       ],
       "stateMutability": "view",
-      "type": "function"
+      "type": "function",
+      "constant": true
     },
     {
       "inputs": [],
@@ -292,7 +298,8 @@
         }
       ],
       "stateMutability": "view",
-      "type": "function"
+      "type": "function",
+      "constant": true
     },
     {
       "inputs": [
@@ -311,7 +318,8 @@
         }
       ],
       "stateMutability": "view",
-      "type": "function"
+      "type": "function",
+      "constant": true
     },
     {
       "inputs": [
@@ -13761,9 +13769,23 @@
     "name": "solc",
     "version": "0.8.11+commit.d7f03943.Emscripten.clang"
   },
-  "networks": {},
+  "networks": {
+    "4": {
+      "events": {},
+      "links": {},
+      "address": "0xB6E2f9cF14ea56767Df5Fa0865433AF22CddC4d5",
+      "transactionHash": "0x9764a921081694e82b42c75efb7c9ad18da088a0d9a552701b96ede6f1551dce"
+    },
+    "5777": {
+      "events": {},
+      "links": {},
+      "address": "0xc17CdB48F083C0410A345b81D6a74C147fEeb3f5",
+      "transactionHash": "0xbefaa604ca4e1c466c6de8b0c67348da7a87f1477ad05d94870ed87f8ff2ddb8"
+    }
+  },
   "schemaVersion": "3.4.3",
-  "updatedAt": "2022-02-15T10:05:05.021Z",
+  "updatedAt": "2022-02-15T10:09:37.455Z",
+  "networkType": "ethereum",
   "devdoc": {
     "kind": "dev",
     "methods": {
