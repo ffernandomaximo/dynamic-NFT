@@ -1,22 +1,68 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
  
-import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
+//import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
+import "@openzeppelin/contracts/token/ERC721/extensions/ERC721URIStorage.sol";
 import "@chainlink/contracts/src/v0.8/VRFConsumerBase.sol";
  
-contract BloodzNFT is ERC721, VRFConsumerBase {
-   /**
-   * Constructor inherits VRFConsumerBase
-   * 
-   * Network: Kovan
-   * Chainlink VRF Coordinator address: 0xdD3782915140c8f3b190B5D67eAc6dc5760C46E9
-   * LINK token address:                0xa36085F69e2889c224210F603D836748e7dC0088
-   * Key Hash: 0x6c3699283bda56ad74f6b855546325b68d482e983852a7a82979cc4807b641f4
-   */ 
-   constructor(address _linkTokenAddress, bytes32 _keyHash, address _vrfCoordinatorAddress, uint256 _fee) 
+contract BloodzNFT is ERC721URIStorage, VRFConsumerBase {
+   
+   bytes32 public keyHash;
+   address public vrfCoordinator;
+   uint256 internal fee;
+   uint256 public randomResult;
+   
+   struct Character {
+      uint256 strengh;
+      uint256 speed;
+      uint256 stamina;
+      string name;
+   }
+
+   Character[] public characters;
+
+   mapping(bytes32 => string) requestToCharacterName;
+   mapping(bytes32 => address) requestToSender;
+   mapping(bytes32 => uint256) requestToTokenId;
+
+
+   constructor(bytes32 _keyHash, address _vrfCoordinatorAddress, address _linkTokenAddress) 
    ERC721("BloodzNZBS", "BLDZ") 
    VRFConsumerBase(_vrfCoordinatorAddress, _linkTokenAddress)
    {
-   
+      vrfCoordinator = _vrfCoordinatorAddress;
+      keyHash = _keyHash;
+      fee = 0.1 * 10**18; //0.1 LINK
+   }
+
+   function requestNewRandomCharacter(uint256 userProviderSeed, string memory name) public returns(bytes32) {
+      bytes32 requestId = requestRandomness(keyHash, fee); //, userProviderSeed);
+      requestToCharacterName[requestId] = name;
+      requestToSender[requestId] = msg.sender;
+      return requestId;
+   }
+
+   function fulfillRandomness(bytes32 requestId, uint256 randomNumber) internal override {
+      uint256 newId = characters.length;
+      uint256 strengh = (randomNumber % 100);
+      uint256 speed = ((randomNumber % 10000) / 100);
+      uint256 stamina = ((randomNumber % 1000000) / 10000);
+
+      characters.push(
+         Character(
+            strengh,
+            speed,
+            stamina,
+            requestToCharacterName[requestId]
+         )
+      );
+      _safeMint(requestToSender[requestId], newId);
+   }
+
+   function setTokenURI(uint256 tokenId, string memory _tokenURI) public {
+      require(_isApprovedOrOwner(_msgSender(), tokenId), "ERC721: TRANSFER CALLER IS NOT OWNER NOT APPROVED");
+      _setTokenURI(tokenId, _tokenURI);
    }
 }
+
+ 
