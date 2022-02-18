@@ -1,4 +1,4 @@
-const RandomNumberConsumer = artifacts.require('RandomNumberConsumer')
+const BloodzNFT = artifacts.require('BloodzNFT')
 const LinkTokenInterface = artifacts.require('LinkTokenInterface')
 
 /*
@@ -8,15 +8,17 @@ const LinkTokenInterface = artifacts.require('LinkTokenInterface')
   can be retrieved by calling the withdrawLink() function.
 */
 
-const payment = process.env.TRUFFLE_CL_BOX_PAYMENT || '1000000000000000000'
+const payment = process.env.TRUFFLE_CL_BOX_PAYMENT || '3000000000000000000'
 
 module.exports = async callback => {
     try {
-        const randomNumberConsumer = await RandomNumberConsumer.deployed()
-        const tokenAddress = await randomNumberConsumer.getChainlinkToken()
+        const bloodz = await BloodzNFT.deployed()
+
+        const tokenAddress = '0x01BE23585060835E02B77ef475b0Cc51aA1e0709'//await bloodz.LinkToken()
+        console.log("Chainlink Token Address: ", tokenAddress)
         const token = await LinkTokenInterface.at(tokenAddress)
-        console.log('Funding contract:', randomNumberConsumer.address)
-        const tx = await token.transfer(randomNumberConsumer.address, payment)
+        console.log('Funding contract:', bloodz.address)
+        const tx = await token.transfer(bloodz.address, payment)
         callback(tx.tx)
     } catch (err) {
         callback(err)
