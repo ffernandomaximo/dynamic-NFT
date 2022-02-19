@@ -38,30 +38,23 @@ contract BloodzNFT is ERC721, VRFConsumerBase, Ownable {
    mapping(bytes32 => uint256) requestToTokenId;
 
    /**
-     * Constructor inherits VRFConsumerBase
-     *
-     * Network: Rinkeby
-     * Chainlink VRF Coordinator address: 0xb3dCcb4Cf7a26f6cf6B120Cf5A73875B7BBc655B
-     * LINK token address:                0x01BE23585060835E02B77ef475b0Cc51aA1e0709
-     * Key Hash: 0x2ed0feb3e7fd2022120aa84fab1945545a9f2ffc9076fd6156fa96eaff4c1311
+      * CONSTRUCTOR INHERITS VRFCONSUMERBASE
+      * NETWORK:                             RINKEBY
+      * CHAINLINK VRF COORDINATOR ADDRESS:   0xb3dCcb4Cf7a26f6cf6B120Cf5A73875B7BBc655B
+      * LINK TOKEN ADDRESS:                  0x01BE23585060835E02B77ef475b0Cc51aA1e0709
+      * KEY HASH:                            0x2ed0feb3e7fd2022120aa84fab1945545a9f2ffc9076fd6156fa96eaff4c1311
    */
    constructor(address _VRFCoordinator, address _LinkToken, bytes32 _keyhash) public
       VRFConsumerBase(_VRFCoordinator, _LinkToken)
-      ERC721("BloodzNZBS", "BLDZ") 
-   {   
+      ERC721("BloodzNZBS", "BLDZ") {   
       VRFCoordinator = _VRFCoordinator;
       LinkToken = _LinkToken;
       keyHash = _keyhash;
       fee = 0.1 * 10**18; // 0.1 LINK
    }
 
-   function requestNewRandomCharacter(
-      string memory name
-   ) public returns (bytes32) {
-      require(
-         LINK.balanceOf(address(this)) >= fee,
-         "Not enough LINK - fill contract with faucet"
-      );
+   function requestNewRandomCharacter(string memory name) public returns (bytes32) {
+      require(LINK.balanceOf(address(this)) >= fee, "NOT ENOUGH LINK - FILL CONTRACT WITH FAUCET");
       bytes32 requestId = requestRandomness(keyHash, fee);
       requestToCharacterName[requestId] = name;
       requestToSender[requestId] = msg.sender;
@@ -73,17 +66,11 @@ contract BloodzNFT is ERC721, VRFConsumerBase, Ownable {
    }
 
    function setTokenURI(uint256 tokenId, string memory _tokenURI) public {
-      require(
-         _isApprovedOrOwner(_msgSender(), tokenId),
-         "ERC721: transfer caller is not owner nor approved"
-      );
+      require(_isApprovedOrOwner(_msgSender(), tokenId), "ERC721: TRANSFER CALLER IS NOT OWNER NOR APPROVED");
       _setTokenURI(tokenId, _tokenURI);
    }
 
-   function fulfillRandomness(bytes32 requestId, uint256 randomNumber)
-      internal
-      override
-   {
+   function fulfillRandomness(bytes32 requestId, uint256 randomNumber) internal override {
       uint256 newId = characters.length;
       uint256 strength = (randomNumber % 100);
       uint256 dexterity = ((randomNumber % 10000) / 100 );
@@ -116,16 +103,8 @@ contract BloodzNFT is ERC721, VRFConsumerBase, Ownable {
       return characters.length; 
    }
 
-   function getCharacterOverView(uint256 tokenId)
-      public
-      view
-      returns (
-         string memory,
-         uint256,
-         uint256,
-         uint256
-      )
-   {
+   function getCharacterOverView(uint256 tokenId) 
+   public view returns (string memory, uint256, uint256, uint256) {
       return (
          characters[tokenId].name,
          characters[tokenId].strength + characters[tokenId].dexterity + characters[tokenId].constitution + characters[tokenId].intelligence + characters[tokenId].wisdom + characters[tokenId].charisma,
@@ -135,18 +114,7 @@ contract BloodzNFT is ERC721, VRFConsumerBase, Ownable {
    }
 
    function getCharacterStats(uint256 tokenId)
-      public
-      view
-      returns (
-         uint256,
-         uint256,
-         uint256,
-         uint256,
-         uint256,
-         uint256,
-         uint256
-      )
-   {
+   public view returns (uint256, uint256, uint256, uint256, uint256, uint256, uint256) {
       return (
          characters[tokenId].strength,
          characters[tokenId].dexterity,
