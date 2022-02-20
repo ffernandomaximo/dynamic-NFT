@@ -10,8 +10,7 @@ module.exports = async callback => {
         // const tx4 = await bdz.requestNewRandomCharacter("The Chainlink Orc")
         callback(tx.tx)
     }
-    catch(e) {
-        // console.log(e);
-        return callback(new Error(e), null);
+    catch (err) {
+        callback(err)
     }
 }

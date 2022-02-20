@@ -1,0 +1,35 @@
+{
+    "name": "THE BLOOD TYPE",
+    "description": "KNOWING THE RIGHT BLOOD TYPE TO GIVE A PATIENT CAN PREVENT COMPLICATIONS FOLLOWING A BLOOD TRANSFUSION FOR DOCTORS AND SURGEONS.",
+    "image": "https://ipfs.io/ipfs/Qmbsw2tA958d1e49w4iv5QfZSNkQviU46WYRbNqAazurvu?filename=BloodzT.jpeg",
+    "attributes": [
+        {
+            "trait_type": "Strength",
+            "value": 59
+        },
+        {
+            "trait_type": "Dexterity",
+            "value": 29
+        },
+        {
+            "trait_type": "Constitution",
+            "value": 18
+        },
+        {
+            "trait_type": "Intelligence",
+            "value": 46
+        },
+        {
+            "trait_type": "Wisdom",
+            "value": 66
+        },
+        {
+            "trait_type": "Charisma",
+            "value": 83
+        },
+        {
+            "trait_type": "Experience",
+            "value": 0
+        }
+    ]
+}

@@ -1,5 +1,5 @@
 # Chainlink Random Character Creation
-
+https://blog.chain.link/build-deploy-and-sell-your-own-dynamic-nft/
 This repo is a starting point for creating:
 1. NFTs built with verifiable RNG using the [Chainlink VRF](https://docs.chain.link/docs/get-a-random-number)
 2. Create dynamic NFTs that change based on real world data. [By using decentralized oracles to get data.](https://docs.chain.link/docs/make-a-http-get-request)
